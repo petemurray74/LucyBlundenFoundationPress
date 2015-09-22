@@ -10,12 +10,12 @@
 if ( ! function_exists( 'wpt_register_theme_customizer' ) ) :
 function wpt_register_theme_customizer( $wp_customize ) {
 	// Create custom panels
-	$wp_customize->add_panel( 'mobile_menu_settings', array(
-	  'priority' => 1000,
-	  'theme_supports' => '',
-	  'title' => __( 'Mobile Menu Settings', 'foundationpress' ),
-	  'description' => __( 'Controls the mobile menu', 'foundationpress' ),
-	) );
+	//$wp_customize->add_panel( 'mobile_menu_settings', array(
+	//  'priority' => 1000,
+	//  'theme_supports' => '',
+	//  'title' => __( 'Mobile Menu Settings', 'foundationpress' ),
+	 // 'description' => __( 'Controls the mobile menu', 'foundationpress' ),
+	//) );
 
 	// Create custom field for mobile navigation layout
 	$wp_customize->add_section( 'mobile_menu_layout' , array(
