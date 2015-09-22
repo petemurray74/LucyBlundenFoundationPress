@@ -4,13 +4,14 @@
 */
 
 // We use these to define default font stacks
-$font-family-sans-serif: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-$font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
-$font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
+$font-family-sans-serif: 'Lato', sans-serif;
 
 // We use these to define default font weights
 $font-weight-normal: normal !default;
 $font-weight-bold: bold !default;
+$paragraph-font-size: 1.25rem;
+$paragraph-line-height: 1.75;
+
 
 // Foundation color naming conventions
 $white       : #FFFFFF;
@@ -42,8 +43,8 @@ $warning-color: #f08a24;
 $info-color: #a0d3e8;
 
 // We use these to control various global styles
-$body-bg: $white;
-$body-font-color: $jet;
+$body-bg: #FFFCF3;
+$body-font-color: #FFFFFF;
 $body-font-family: $font-family-sans-serif;
 $body-font-weight: $font-weight-normal;
 $body-font-style: normal;

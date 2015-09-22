@@ -15,10 +15,16 @@ if ( ! function_exists( 'foundationpress_scripts' ) ) :
 
 	// Enqueue the main Stylesheet.
 	wp_enqueue_style( 'main-stylesheet', get_stylesheet_directory_uri() . '/assets/stylesheets/foundation.css' );
+	
+	// Enqueue the fonts 
+	wp_enqueue_style( 'lato-font', '//fonts.googleapis.com/css?family=Lato:400,700' );
 
 	// Deregister the jquery version bundled with WordPress.
 	wp_deregister_script( 'jquery' );
 
+	// Deregister Open Sans #624 script-loader.php
+	wp_deregister_script( 'open-sans' );
+	
 	// Modernizr is used for polyfills and feature detection. Must be placed in header. (Not required).
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/javascript/vendor/modernizr.js', array(), '2.8.3', false );
 
