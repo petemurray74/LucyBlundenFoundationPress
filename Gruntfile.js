@@ -9,7 +9,8 @@ module.exports = function (grunt) {
 		    compress: {
 		      main: {
 		        options: {
-		          archive: 'packaged/<%= pkg.name %>.zip'
+		          archive: 'packaged/<%= pkg.name %>' + grunt.template.today('_yyyy-mm-dd_HH-MM') + '.zip',
+							mode: 'zip'
 		        },
 		        expand: true,
 		        cwd: '.',
@@ -23,7 +24,8 @@ module.exports = function (grunt) {
 							'!**/package.json',
 							'!**/composer.json',
 							'!**/composer.lock',
-							'!**/codesniffer.ruleset.xml'
+							'!**/codesniffer.ruleset.xml',
+							'!**/packaged/*'
 						],
 		        dest: '<%= pkg.name %>'
 		      },
@@ -67,26 +69,6 @@ module.exports = function (grunt) {
 
 		},
 
-		'string-replace': {
-
-			fontawesome: {
-				files: {
-					'assets/fontawesome/scss/_variables.scss': 'assets/fontawesome/scss/_variables.scss'
-				},
-
-				options: {
-					replacements: [
-						{
-							pattern: '../fonts',
-							replacement: '../assets/fonts'
-						}
-					]
-				}
-
-			}
-
-		},
-
 		concat: {
 
 			options: {
@@ -99,7 +81,6 @@ module.exports = function (grunt) {
 
 					// Foundation core
 					'assets/components/foundation/js/foundation/foundation.js',
-
 					// Pick the componenets you need in your project
 					//'assets/components/foundation/js/foundation/foundation.abide.js',
 					//'assets/components/foundation/js/foundation/foundation.accordion.js',
@@ -123,7 +104,7 @@ module.exports = function (grunt) {
 
 				],
 
-				// Finally, concatinate all the files above into one single file
+				// Finally, concatenate all the files above into one single file
 				dest: 'assets/javascript/foundation.js'
 
 			}
@@ -167,18 +148,52 @@ module.exports = function (grunt) {
 				}
 			}
 
-		}
+		},
+
+		postcss: {
+      options: {
+        map: true,
+        processors: [
+					require('pixrem')(), // add fallbacks for rem units
+          require('autoprefixer')({browsers: 'last 2 versions'}), // add vendor prefixes
+					require('cssnano')() // minify the result
+        ]
+      },
+      dist: {
+        src: 'assets/stylesheets/foundation.css'
+      }
+		},
+
+		browserSync: {
+            dev: {
+                bsFiles: {
+                    src : [
+                        'assets/stylesheets/*.css',
+                        '**/*.php',
+                        'assets/javascript/**/*.js'
+                    ]
+                },
+                options: {
+                    watchTask: true,
+                    // fill in proxy address of local WP server
+                    proxy: ""
+                }
+            }
+        }
 	});
 
 	grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-postcss');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-string-replace');
-  grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-browser-sync');
 
 	grunt.registerTask('package', ['compress:main']);
-	grunt.registerTask('build', ['copy', 'string-replace:fontawesome', 'sass', 'concat', 'uglify']);
+	grunt.registerTask('build', ['copy', 'sass', 'postcss', 'concat', 'uglify']);
+	grunt.registerTask('browser-sync', ['browserSync', 'watch']);
 	grunt.registerTask('default', ['watch']);
 };
