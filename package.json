@@ -47,5 +47,10 @@
     "watch": "grunt watch",
     "browsersync": "grunt browser-sync",
     "package": "grunt package"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.1.1",
+    "cssnano": "^3.3.2",
+    "pixrem": "^3.0.0"
   }
 }
