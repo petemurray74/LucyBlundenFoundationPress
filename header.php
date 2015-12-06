@@ -24,7 +24,7 @@
 		<?php wp_head(); ?>
 	</head>
 	<body <?php body_class(); ?>>
-	<!-- WP PUSHER -->
+	<!-- WP PUSHER DEV-->
 	<?php do_action( 'foundationpress_after_body' ); ?>
 
 	<?php if ( ! get_theme_mod( 'wpt_mobile_menu_layout' ) || get_theme_mod( 'wpt_mobile_menu_layout' ) == 'offcanvas' ) : ?>
